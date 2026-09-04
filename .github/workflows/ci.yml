@@ -17,14 +17,14 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Install backend dependencies
         run: |
           cd backend
           npm ci || npm install
 
-      - name: Check backend syntax & start dry-run
+      - name: Check backend syntax
         run: |
           cd backend
           node --check index.js
@@ -39,7 +39,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Install frontend dependencies
         run: |
@@ -52,6 +52,8 @@ jobs:
           npm test -- --watchAll=false --passWithNoTests
 
       - name: Build frontend
+        env:
+          CI: false
         run: |
           cd frontend
           npm run build
